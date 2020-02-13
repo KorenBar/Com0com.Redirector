@@ -33,6 +33,8 @@ namespace Com0com.Redirector
     public class Com0comPortPair : INotifyPropertyChanged
     {
         #region Fields
+        private bool _autoStart = false;
+        private bool _stopWhenPortAClosed = false;
         private string _portConfigStringA = "";
         private string _portConfigStringB = "";
         private Process _p;
@@ -50,6 +52,33 @@ namespace Com0com.Redirector
         public int PairNumber { get; private set; }
         public string PortNameA { get; private set; }
         public string PortNameB { get; private set; }
+        public bool IsPortAOpen { get; private set; } // will be updated only when StopWhenPortAClosed is true.
+
+        public bool AutoStart
+        {
+            get
+            {
+                return _autoStart;
+            }
+            set
+            {
+                _autoStart = value;
+                OnPropertyChanged("AutoStart");
+            }
+        }
+
+        public bool StopWhenPortAClosed
+        {
+            get
+            {
+                return _stopWhenPortAClosed;
+            }
+            set
+            {
+                _stopWhenPortAClosed = value;
+                OnPropertyChanged("StopWhenPortAClosed");
+            }
+        }
 
         public string RemotePort
         {
@@ -149,12 +178,33 @@ namespace Com0com.Redirector
         #endregion
 
         public Com0comPortPair(int number)
+            : this(number, "192.168.1.1", "8882", "8883", false)
+        { }
+
+        public Com0comPortPair(int number, string remoteIP, string remotePort, string localPort, bool autoStart)
         {
-            RemoteIP = "192.168.7.1";
-            RemotePort = "8882";
-            LocalPort = "8883";
             PairNumber = number;
+            AutoStart = autoStart;
+            RemoteIP = remoteIP;
+            RemotePort = remotePort;
+            LocalPort = localPort;
             Ini.Default.LoadProperties(this, number.ToString());
+            ContinualCheckAsync();
+        }
+
+        private async void ContinualCheckAsync()
+        {
+            await Task.Run(async () => 
+            {
+                while (true)
+                {
+                    if (StopWhenPortAClosed && !(IsPortAOpen = IsPortOpen(PortNameA)))
+                        StopComms();
+                    else if (AutoStart)
+                        StartComms();
+                    await Task.Delay(1000); // Wait a second.
+                }
+            });
         }
 
         #region Static Functions
@@ -181,6 +231,24 @@ namespace Com0com.Redirector
             {
                 //we might get exceptions here, as parent might auto exit once their children are terminated
             }
+        }
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        internal static extern SafeFileHandle CreateFile(string lpFileName, int dwDesiredAccess, int dwShareMode, IntPtr securityAttrs, int dwCreationDisposition, int dwFlagsAndAttributes, IntPtr hTemplateFile);
+
+        private static bool IsPortOpen(string portName)
+        { // Taken from https://stackoverflow.com/a/5052499/12171731
+            int dwFlagsAndAttributes = 0x40000000;
+
+            var isValid = SerialPort.GetPortNames().Any(x => string.Compare(x, portName, true) == 0);
+            if (!isValid) return false; // port was not found
+
+            //Borrowed from Microsoft's Serial Port Open Method :)
+            SafeFileHandle hFile = CreateFile(@"\\.\" + portName, -1073741824, 0, IntPtr.Zero, 3, dwFlagsAndAttributes, IntPtr.Zero);
+            if (hFile.IsInvalid) return true; // port is already open
+
+            hFile.Close();
+            return false;
         }
 
         #endregion

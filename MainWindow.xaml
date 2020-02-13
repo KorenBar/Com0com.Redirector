@@ -16,6 +16,14 @@
         <ListView Name="listPorts" ItemsSource="{Binding PortPairs}" HorizontalAlignment="Left" Width="379" Height="152" VerticalAlignment="Top" Margin="0,23,0,0" MouseDoubleClick="listPorts_MouseDoubleClick">
             <ListView.View>
                 <GridView>
+                    <GridViewColumn>
+                        <GridViewColumnHeader Content="Auto Start" />
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding AutoStart}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding PairNumber}" >
                         <GridViewColumnHeader Content="Number" />
                     </GridViewColumn>
@@ -42,6 +50,7 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="546,51,0,0" TextWrapping="Wrap" Text="{Binding Path=SelectedValue.RemoteIP, ElementName=listPorts}" VerticalAlignment="Top" Width="126"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="546,79,0,0" TextWrapping="Wrap" Text="{Binding Path=SelectedValue.RemotePort, ElementName=listPorts}" VerticalAlignment="Top" Width="126"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="546,107,0,0" TextWrapping="Wrap" Text="{Binding Path=SelectedValue.LocalPort, ElementName=listPorts}" VerticalAlignment="Top" Width="126"/>
+        <CheckBox Content="Stop When Port A Closed" HorizontalAlignment="Left" Margin="384,134,0,0" VerticalAlignment="Top" IsChecked="{Binding Path=SelectedValue.StopWhenPortAClosed, ElementName=listPorts}"/>
         <Button Content="Start" HorizontalAlignment="Left" Margin="384,151,0,0" VerticalAlignment="Top" Width="75" Click="btnStart_Click" Height="24"/>
         <Button Content="Stop" HorizontalAlignment="Left" Margin="464,151,0,0" VerticalAlignment="Top" Width="75" Click="btnStop_Click" Height="24"/>
         <TextBox Margin="0,180,0,0"  TextWrapping="Wrap" Text="{Binding Path=SelectedValue.OutputData, ElementName=listPorts, Mode=OneWay}" IsReadOnly="True" Background="Black" Foreground="White" FontFamily="Courier New" VerticalScrollBarVisibility="Visible"/>
