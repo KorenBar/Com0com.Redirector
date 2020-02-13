@@ -176,7 +176,12 @@ namespace Com0com.Redirector
 
         private void listPorts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            btnPortSelect_Click(sender, null);
+            //btnPortSelect_Click(sender, null);
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            (sender as TextBox).ScrollToEnd();
         }
     }
 }

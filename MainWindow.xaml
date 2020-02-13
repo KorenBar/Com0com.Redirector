@@ -53,7 +53,7 @@
         <CheckBox Content="Stop When Port A Closed" HorizontalAlignment="Left" Margin="384,134,0,0" VerticalAlignment="Top" IsChecked="{Binding Path=SelectedValue.StopWhenPortAClosed, ElementName=listPorts}"/>
         <Button Content="Start" HorizontalAlignment="Left" Margin="384,151,0,0" VerticalAlignment="Top" Width="75" Click="btnStart_Click" Height="24"/>
         <Button Content="Stop" HorizontalAlignment="Left" Margin="464,151,0,0" VerticalAlignment="Top" Width="75" Click="btnStop_Click" Height="24"/>
-        <TextBox Margin="0,180,0,0"  TextWrapping="Wrap" Text="{Binding Path=SelectedValue.OutputData, ElementName=listPorts, Mode=OneWay}" IsReadOnly="True" Background="Black" Foreground="White" FontFamily="Courier New" VerticalScrollBarVisibility="Visible"/>
+        <TextBox Margin="0,180,0,0" TextWrapping="Wrap" Text="{Binding Path=SelectedValue.OutputData, ElementName=listPorts, Mode=OneWay}" IsReadOnly="True" Background="Black" Foreground="White" FontFamily="Courier New" VerticalScrollBarVisibility="Visible" TextChanged="TextBox_TextChanged"/>
         <Button Content="Select from Database" HorizontalAlignment="Left" Margin="546,151,0,0" VerticalAlignment="Top" Width="126" Click="btnPortSelect_Click" RenderTransformOrigin="1.667,0.65" Height="24"/>
         
     </Grid>
