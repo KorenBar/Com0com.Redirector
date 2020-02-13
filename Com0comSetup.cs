@@ -68,6 +68,11 @@ namespace Com0com.Redirector
 
         public static bool CreatePortPair(string portNameA)
         {
+            return CreatePortPair(portNameA, 60000); // Timeout is a minute
+        }
+
+        public static bool CreatePortPair(string portNameA, int timeout)
+        {
             if (UacHelper.IsUacEnabled)
                 if (!UacHelper.IsProcessElevated)
                     return false;
@@ -87,9 +92,8 @@ namespace Com0com.Redirector
                 }
             };
             proc.Start();
-
-            //TODO: add a timeout here
-            while (!proc.HasExited) { }
+            if (!proc.WaitForExit(timeout))
+                proc.Kill();
             return proc.ExitCode == 0;
         }
 
@@ -111,6 +115,11 @@ namespace Com0com.Redirector
 
         public static bool DeletePortPair(int n)
         {
+            return DeletePortPair(n, 60000); // Timeout is a minute
+        }
+
+        public static bool DeletePortPair(int n, int timeout)
+        {
             if (UacHelper.IsUacEnabled)
                 if (!UacHelper.IsProcessElevated)
                     return false;
@@ -130,8 +139,8 @@ namespace Com0com.Redirector
                 }
             };
             proc.Start();
-            //TODO: add a timeout here
-            while (!proc.HasExited) { }
+            if (!proc.WaitForExit(timeout))
+                proc.Kill();
             return proc.ExitCode == 0;
         }
 
