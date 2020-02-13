@@ -222,7 +222,7 @@ namespace Com0com.Redirector
         }
 
         #region Static Functions
-      
+
         /// <summary>
         /// Kill a process, and all of its children, grandchildren, etc.
         /// </summary>
@@ -295,7 +295,7 @@ namespace Com0com.Redirector
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = @"C:\Program Files (x86)\com0com\" + program,
+                    FileName = Path.GetFullPath(program),
                     Arguments = this.Options + " " + arguments,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,

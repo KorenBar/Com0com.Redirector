@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
+using KB.Configuration;
 
 namespace Com0com.Redirector
 {
@@ -29,13 +31,15 @@ namespace Com0com.Redirector
             {
                 PortPairs = Com0comSetup.GetPortPairs();
             }
-            catch
+            catch (Exception e)
             { 
                 MessageBox.Show("Unable to parse com0com ports.  Is com0com installed?");
                 Close();
+                throw new Exception("Unable to parse com0com ports.", e);
             }
             InitializeComponent();
             cboCommsMode.ItemsSource = Enum.GetValues(typeof(CommsMode));
+            Ini.Default.LoadProperties(this);
         }
 
         private void RefreshPortPairs()
@@ -102,7 +106,7 @@ namespace Com0com.Redirector
                 }
                 else
                 {
-                    MessageBox.Show("Failed to remove pair - do you have admin?");
+                    MessageBox.Show("Failed to remove pair. Do you have administrator privileges?");
                 }
             }
         }
@@ -123,7 +127,7 @@ namespace Com0com.Redirector
                 }
                 else
                 {
-                    MessageBox.Show("Failed to create pair - do you have admin?");
+                    MessageBox.Show("Failed to create pair. Do you have administrator privileges?");
                 }
             }
         }
