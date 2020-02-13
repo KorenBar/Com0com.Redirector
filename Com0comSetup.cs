@@ -13,9 +13,8 @@ namespace Com0com.Redirector
 {
     public static class Com0comSetup
     {
-
-        private static string _com0comSetupc = @"C:\Program Files (x86)\com0com\setupc.exe";
-        private static string _com0comSetupg = @"C:\Program Files (x86)\com0com\setupg.exe";
+        private static string _com0comSetupc = Path.GetFullPath(References.Default.Setupc);
+        private static string _com0comSetupg = Path.GetFullPath(References.Default.Setupg);
 
         /// <summary>
         /// Get all com0com Port Pairs currently installed in the system.

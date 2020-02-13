@@ -52,7 +52,13 @@
     <ApplicationIcon>
     </ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="KB.Configuration">
+      <HintPath>..\..\Visual Studio 2017\Projects\KB\KB.Configuration\bin\Debug\KB.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Management" />
@@ -73,7 +79,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChildProcessTracker.cs" />
     <Compile Include="Com0comSetup.cs" />
+    <Compile Include="References.cs" />
+    <Compile Include="Utility.cs" />
     <Compile Include="PortConfig.cs" />
     <Compile Include="PortConfigWindow.xaml.cs">
       <DependentUpon>PortConfigWindow.xaml</DependentUpon>
@@ -122,11 +131,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Resources\default.ini" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

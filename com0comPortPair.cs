@@ -11,6 +11,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Runtime.InteropServices;
+using Microsoft.Win32.SafeHandles;
+using KB.Configuration;
 
 namespace Com0com.Redirector
 {
@@ -151,6 +154,7 @@ namespace Com0com.Redirector
             RemotePort = "8882";
             LocalPort = "8883";
             PairNumber = number;
+            Ini.Default.LoadProperties(this, number.ToString());
         }
 
         #region Static Functions
@@ -191,16 +195,16 @@ namespace Com0com.Redirector
             switch (CommsMode)
             {
                 case CommsMode.RFC2217:
-                    program = "com2tcp-rfc2217.bat";
-                    arguments = string.Format("\\\\.\\{0} {1} {2}", PortNameB, RemoteIP, RemotePort);
+                    program = References.Default.RFC2217;
+                    arguments = string.Format(@"\\.\{0} {1} {2}", PortNameB, RemoteIP, RemotePort);
                     break;
                 case CommsMode.TCPClient:
-                    program = "com2tcp.exe";
-                    arguments = string.Format("\\\\.\\{0} {1} {2}", PortNameB, RemoteIP, RemotePort);
+                    program = References.Default.Com2tcp;
+                    arguments = string.Format(@"\\.\{0} {1} {2}", PortNameB, RemoteIP, RemotePort);
                     break;
                 case CommsMode.UDP:
-                    program = "com2tcp.exe";
-                    arguments = string.Format("--udp \\\\.\\{0} {1} {2} {3}", PortNameB, RemoteIP, RemotePort, LocalPort);
+                    program = References.Default.Com2tcp;
+                    arguments = string.Format(@"--udp \\.\{0} {1} {2} {3}", PortNameB, RemoteIP, RemotePort, LocalPort);
                     break;
 
             }

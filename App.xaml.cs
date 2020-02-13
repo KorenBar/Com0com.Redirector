@@ -8,6 +8,7 @@ using System.Windows;
 using System.Reflection;
 using System.IO;
 using System.Windows.Threading;
+using KB.Configuration;
 
 namespace Com0com.Communicator
 {
@@ -17,6 +18,12 @@ namespace Com0com.Communicator
     public partial class App : Application
     {
         public bool WriteErrorToLogFile { get; set; } = true;
+
+        public App()
+        {
+            Ini.Default = new Ini(Path.ChangeExtension(Assembly.GetExecutingAssembly().Location, ".ini")); // Rename the ini file to be as the exe file name.
+            Ini.Default.CreateDefault(Redirector.Properties.Resources.DefaultIni);
+            Ini.Default.LoadProperties(this);
         }
 
         void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

@@ -19,7 +19,7 @@ namespace Com0com.Redirector.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,34 @@ namespace Com0com.Redirector.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [References]
+        ///setupc=C:\Program Files (x86)\com0com\setupc.exe
+        ///setupg=C:\Program Files (x86)\com0com\setupg.exe
+        ///com2tcp-rfc2217=C:\Program Files (x86)\com0com\hub4com\com2tcp-rfc2217.bat
+        ///com2tcp=C:\Program Files (x86)\com0com\hub4com\com2tcp.exe
+        ///hub4com=C:\Program Files (x86)\com0com\hub4com\hub4com.exe
+        ///
+        ///[0]
+        ///AutoStart=False
+        ///StopWhenPortAClosed=False
+        ///CommsMode=RFC2217
+        ///RemoteIP=192.168.1.1
+        ///RemotePort=7001
+        ///LocalPort=8001
+        ///Options=--reconnect 15
+        ///
+        ///[1]
+        ///AutoStart=False
+        ///StopWhenPortAClosed=False
+        ///Co [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DefaultIni {
+            get {
+                return ResourceManager.GetString("DefaultIni", resourceCulture);
             }
         }
     }
