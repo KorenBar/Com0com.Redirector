@@ -226,7 +226,8 @@ namespace Com0com.Redirector
             _p.Start();
             _p.BeginOutputReadLine();
             _p.BeginErrorReadLine();
-            
+            ChildProcessTracker.AddProcess(_p);
+
             CommsStatus = CommsStatus.Running;
         }
 
