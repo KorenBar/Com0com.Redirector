@@ -44,7 +44,8 @@ namespace Com0com.Redirector
         private string _remoteIP = "";
         private string _remotePort = "";
         private string _localPort = "";
-        
+        private string _options = "";
+
         #endregion
 
         #region Properties
@@ -175,6 +176,19 @@ namespace Com0com.Redirector
             }
         }
 
+        public string Options
+        {
+            get
+            {
+                return _options;
+            }
+            set
+            {
+                _options = value;
+                OnPropertyChanged("Options");
+            }
+        }
+
         #endregion
 
         public Com0comPortPair(int number)
@@ -282,7 +296,7 @@ namespace Com0com.Redirector
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = @"C:\Program Files (x86)\com0com\" + program,
-                    Arguments = arguments,
+                    Arguments = this.Options + " " + arguments,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
