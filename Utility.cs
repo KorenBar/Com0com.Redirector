@@ -31,4 +31,21 @@ namespace Utility
             return res; // Returns true if file already exists.
         }
     }
+
+    public static class Process
+    {
+        public static void KillProcessAndChildren()
+        {
+            KillProcessAndChildren(System.Diagnostics.Process.GetCurrentProcess().Id);
+        }
+
+        public static void KillProcessAndChildren(int pid)
+        {
+            foreach (ManagementObject mo in new ManagementObjectSearcher("Select * From Win32_Process Where ParentProcessID=" + pid).Get())
+                KillProcessAndChildren(Convert.ToInt32(mo["ProcessID"]));
+            try { System.Diagnostics.Process.GetProcessById(pid).Kill(); }
+            catch (ArgumentException) { /* process already exited */ }
+            catch { }
+        }
+    }
 }
