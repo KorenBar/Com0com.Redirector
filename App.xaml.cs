@@ -9,6 +9,7 @@ using System.Reflection;
 using System.IO;
 using System.Windows.Threading;
 using KB.Configuration;
+using System.Text;
 
 namespace Com0com.Communicator
 {
@@ -29,8 +30,7 @@ namespace Com0com.Communicator
         void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             if (WriteErrorToLogFile)
-                Utility.File.AddText(Path.ChangeExtension(Assembly.GetExecutingAssembly().Location, ".error.log"), 
-                    DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss:FFF") + " => " + e.Exception.ToString());
+                File.AppendAllText(Path.GetFullPath(ErrorLogFile), DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss:FFF") + " => " + e.Exception.ToString() + Environment.NewLine, Encoding.UTF8);
         }
 
         private void App_Exit(object sender, ExitEventArgs e)
