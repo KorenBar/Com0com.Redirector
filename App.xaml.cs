@@ -18,7 +18,9 @@ namespace Com0com.Communicator
     /// </summary>
     public partial class App : Application
     {
+        public string ErrorLogFile { get; set; } = Path.ChangeExtension(Assembly.GetExecutingAssembly().Location, ".error.log");
         public bool WriteErrorToLogFile { get; set; } = true;
+        public bool HandleExceptions { get; set; } = true;
 
         public App()
         {
@@ -31,6 +33,7 @@ namespace Com0com.Communicator
         {
             if (WriteErrorToLogFile)
                 File.AppendAllText(Path.GetFullPath(ErrorLogFile), DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss:FFF") + " => " + e.Exception.ToString() + Environment.NewLine, Encoding.UTF8);
+            if (HandleExceptions) e.Handled = true;
         }
 
         private void App_Exit(object sender, ExitEventArgs e)
