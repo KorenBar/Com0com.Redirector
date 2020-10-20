@@ -45,7 +45,7 @@
         <ComboBox Name="cboCommsMode" HorizontalAlignment="Left" Margin="546,24,0,0" VerticalAlignment="Top" Width="126" SelectedValue="{Binding Path=SelectedValue.CommsMode, ElementName=listPorts}"/>
         <Label Content="Communications Mode" HorizontalAlignment="Left" Margin="384,20,0,0" VerticalAlignment="Top"/>
         <Label Content="Destination IP" HorizontalAlignment="Left" Margin="384,47,0,0" VerticalAlignment="Top"/>
-        <Label Content="Detsination Port" HorizontalAlignment="Left" Margin="384,75,0,0" VerticalAlignment="Top"/>
+        <Label Content="Destination Port" HorizontalAlignment="Left" Margin="384,75,0,0" VerticalAlignment="Top"/>
         <Label Content="Local Port (UDP only)" HorizontalAlignment="Left" Margin="384,103,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="546,51,0,0" TextWrapping="Wrap" Text="{Binding Path=SelectedValue.RemoteIP, ElementName=listPorts}" VerticalAlignment="Top" Width="126"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="546,79,0,0" TextWrapping="Wrap" Text="{Binding Path=SelectedValue.RemotePort, ElementName=listPorts}" VerticalAlignment="Top" Width="126"/>
